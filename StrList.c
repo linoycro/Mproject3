@@ -185,11 +185,39 @@ StrList* StrList_clone(const StrList* StrList) {
 	return ret;
 }
 
-void StrList_reverse( StrList* StrList) {
-
+void StrList_reverse(StrList* StrList) {
+    Node *prev = NULL, *current = StrList->_head, *next = NULL;
+    while(current!=NULL) {
+        next = current->_next;
+        current->_next = prev;
+        prev = current;
+        current = next;
+    }
+    StrList->_head= prev;
 }
 
 void StrList_sort( StrList* StrList) {
+    int swapped;
+    Node* p1; p2 = NULL;
+
+    if (StrList->_head == NULL) {
+        return; }
+
+    do {
+        swapped = 0;
+        ptr1 = StrList->_head;
+
+          while (p1->_next != p2) {
+            if (strcmp(ptr1->_data, ptr1->_next->_data) > 0) {
+                char* temp = p1->_data;
+                p1->_data = p1->_next->_data;
+                p1->_next->_data = temp;
+                swapped = 1;
+            }
+            p1 = p1->_next;
+        }
+        p2 = p1;
+    } while (swapped);
 
 }
 
