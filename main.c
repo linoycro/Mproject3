@@ -1,28 +1,29 @@
 #include <stdio.h>
-#include "List.h"
+#include "StrList.h"
 #include <stdlib.h>
 
 int main(){
 
-    char* words[100] = NULL;
+    char words[100];
+    char* words1[100];
     int wordsC = 0, indx = 0;
-    List* lst = StrList_alloc();
+    StrList* lst = StrList_alloc();
     int choice = 0;
-    scanf("%d", &choice)
+    scanf("%d", &choice);
 
     if (choice == 1){
-        scanf("%d", &wordsC)           
+        scanf("%d", &wordsC);           
         for(int i=0; i<wordsC; i++){
-            scanf("%s", words);
-            words = (char *)malloc(100 * sizeof(words));
+            scanf("%s", words1[i]);
+            char* words = malloc(100 * sizeof(char));
             StrList_insertLast(lst, words);
         }
     }
 
     if (choice == 2){
-        scanf("%d", indx);
+        scanf("%d", &indx);
+        char* words = malloc(100 * sizeof(char));
         scanf("%s", words);
-        words = (char *)malloc(100 * sizeof(words));
         StrList_insertAt(lst, words, indx);
         
     }
@@ -32,11 +33,11 @@ int main(){
     }
 
     if (choice == 4){
-        printf("%d", StrList_size(lst));
+        printf("%d", (int)(StrList_size(lst)));
     }
 
     if (choice == 5){
-        scanf("%d", indx)
+        scanf("%d", &indx);
         StrList_printAt(lst, indx);
     }
 
@@ -46,7 +47,7 @@ int main(){
 
     if (choice == 7){
         scanf("%s", words);
-        printf("%d", StrList_count(lst, worda));
+        printf("%d", StrList_count(lst, words));
     }
 
     if (choice == 8){
@@ -55,8 +56,8 @@ int main(){
     }
 
     if (choice == 9){
-        scanf("%s", words);
-        StrList_removeAt(lst, words);
+        scanf("%d", &indx);
+        StrList_removeAt(lst, indx);
     }
 
     if (choice == 10){
@@ -64,10 +65,10 @@ int main(){
     }
 
     if (choice == 11){
-        lst == NULL;
+        lst = NULL;
     }
 
-    if (choice = 12){
+    if (choice == 12){
         StrList_sort(lst);
     }
 
