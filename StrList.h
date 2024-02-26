@@ -18,9 +18,9 @@
  */
 struct _StrList;
 typedef struct _StrList StrList;
-typedef struct _node;
+typedef struct _node Node;
 
-Node* createNode(char* data) ;
+Node* createNode(const char* data) ;
 
 /*
  * Allocates a new empty StrList.
