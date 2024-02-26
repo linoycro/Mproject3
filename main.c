@@ -88,7 +88,9 @@ int main()
 
         if (choice == 13)
         {
-            StrList_isSorted(lst);
+            if (StrList_isSorted(lst) == 1)
+                printf("true");
+            else printf("false");
         }
 
         scanf("%d", &choice);

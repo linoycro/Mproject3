@@ -95,11 +95,11 @@ char* StrList_firstData(const StrList* StrList) {
 
 void StrList_print(const StrList* StrList) {
     const Node* p= StrList->_head;
-	while(p) {
-		printf("%s", p->_data);
+	while(p->_next) {
+		printf("%s ", p->_data);
 		p= p->_next;
 	}
-	printf("|| size:%zu\n",StrList->_size);
+    printf("%s", p->_data);
 }
 
 void StrList_printAt(const StrList* StrList, int index) {
