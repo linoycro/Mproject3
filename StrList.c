@@ -96,7 +96,7 @@ char* StrList_firstData(const StrList* StrList) {
 void StrList_print(const StrList* StrList) {
     const Node* p= StrList->_head;
 	while(p) {
-		printf("(%.2s)->",p->_data);
+		printf("%s", p->_data);
 		p= p->_next;
 	}
 	printf("|| size:%zu\n",StrList->_size);
