@@ -1,20 +1,22 @@
 #include <stdio.h>
-#include "List.h"
+#include "StrList.h"
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct _node {
     char* _data;
-    struct _node * _next;
+    struct _node* _next;
 } Node;
 
-Node* createNode(char* data) {
+Node* createNode(const char* data) {
     Node* newNode = (Node*)malloc(sizeof(Node));
     if (newNode == NULL) {
         exit(EXIT_FAILURE);
     }
-    newNode->_data = strdup(data); 
+    newNode->_data = strdup(data);
     newNode->_next = NULL;
-    return newNode; }
+    return newNode;
+}
 
 struct _StrList {
     Node* _head;
@@ -94,46 +96,60 @@ char* StrList_firstData(const StrList* StrList) {
 void StrList_print(const StrList* StrList) {
     const Node* p= StrList->_head;
 	while(p) {
-		printf("(%.2f)->",p->_data);
+		printf("(%.2s)->",p->_data);
 		p= p->_next;
 	}
 	printf("|| size:%zu\n",StrList->_size);
 }
 
-void StrList_printAt(const StrList* Strlist,int index) {
-    if(index<0) {
-		return;
-	}
-	else {
-		Node* current = StrList->_head;
-		int count = 0;
-		while (current != NULL && count < index) {
-			 current = current->_next;
-			 count++;
-	}
-	if (current == NULL) {
+void StrList_printAt(const StrList* StrList, int index) {
+    if (index < 0 || index >= StrList->_size) {
         return;
     }
-	printf("%s\n", current->_data)} }
+
+    Node* current = StrList->_head;
+    int count = 0;
+    while (current != NULL && count < index) {
+        current = current->_next;
+        count++;
+    }
+    printf("%s\n", current->_data);
+}
 
 
-int StrList_printLen(const StrList* Strlist) {
-	const Node* p= StrList->_head;
-	int sum = 0;
-	while(p) {
-		sum += strlen(p->_data);
-		p= p->_next;
-	}
+int StrList_printLen(const StrList* StrList) {
+    const Node* p = StrList->_head;
+    int sum = 0;
+    while (p) {
+        sum += strlen(p->_data);
+        p = p->_next;
+    }
     return sum;
-} 
+}
 
-// int StrList_count(StrList* StrList, const char* data) {
+int StrList_count(StrList* StrList, const char* data) {
+    const Node* p= StrList->_head;
+    int count = 0;
+    while(p) {
+        if(strcmp(p->_data, data) == 0) {
+            count++;
+        }
+        p= p->_next;
+    }
+    return count;
+}
 
-// }
-
-// void StrList_remove(StrList* StrList, const char* data) {
-
-// }
+void StrList_remove(StrList* StrList, const char* data) {
+    const Node* p= StrList->_head;
+    int index = 0;
+    while (p != NULL) {
+        Node* nextNode = p->_next; 
+        if (strcmp(p->_data, data) == 0) {
+            StrList_removeAt(StrList, index); 
+        }
+        p = nextNode; 
+        index++; 
+} }
 
 void StrList_removeAt(StrList* StrList, int index) {
     if (index == 0) {
@@ -173,17 +189,29 @@ int StrList_isEqual(const StrList* StrList1, const StrList* StrList2) {
 }
 
 StrList* StrList_clone(const StrList* StrList) {
-    StrList* ret= StrList_alloc();
-	const Node* old= StrList->_head;
-	Node* * copy= &(ret->_head);
-	ret->_size= StrList->_size;
-	while(old) {
-		*copy= Node_alloc(old->_data,NULL);
-		old= old->_next;
-		copy= &((*copy)->_next);
-	}
-	return ret;
+    StrList* ret;
+    ret = StrList_alloc();
+
+    if (StrList->_head == NULL) {
+        return ret;
+    }
+
+    const Node* old = StrList->_head;
+    Node** copy = &(ret->_head);
+    ret->_size = StrList->_size;
+
+    while (old != NULL) {
+
+        *copy = createNode(old->_data);
+        
+        old = old->_next;
+
+        copy = &((*copy)->_next);
+    }
+
+    return ret;
 }
+
 
 void StrList_reverse(StrList* StrList) {
     Node *prev = NULL, *current = StrList->_head, *next = NULL;
@@ -198,7 +226,9 @@ void StrList_reverse(StrList* StrList) {
 
 void StrList_sort( StrList* StrList) {
     int swapped;
-    Node* p1; p2 = NULL;
+    Node* p1; 
+    Node* p2 = NULL;
+    Node* ptr1;
 
     if (StrList->_head == NULL) {
         return; }
@@ -222,11 +252,20 @@ void StrList_sort( StrList* StrList) {
 }
 
 int StrList_isSorted(StrList* StrList) {
-    if(StrList_sort(StrList)) {
-        return 1;
+    if (StrList->_head == NULL || StrList->_head->_next == NULL) {
+        return 1; 
     }
-    return 0;
+
+    const Node* current = StrList->_head;
+    while (current->_next != NULL) {
+        if (strcmp(current->_data, current->_next->_data) > 0) {
+            return 0; 
+        }
+        current = current->_next;
+    }
+    return 1; 
 }
+
 
 
 
