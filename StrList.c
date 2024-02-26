@@ -188,17 +188,17 @@ int StrList_isEqual(const StrList* StrList1, const StrList* StrList2) {
 	return eq;
 }
 
-StrList* StrList_clone(const StrList* StrList) {
+StrList* StrList_clone(const StrList* lst) {
     StrList* ret;
     ret = StrList_alloc();
 
-    if (StrList->_head == NULL) {
+    if (lst->_head == NULL) {
         return ret;
     }
 
-    const Node* old = StrList->_head;
+    const Node* old = lst->_head;
     Node** copy = &(ret->_head);
-    ret->_size = StrList->_size;
+    ret->_size = lst->_size;
 
     while (old != NULL) {
 
