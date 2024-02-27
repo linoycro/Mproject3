@@ -34,12 +34,13 @@ int main()
 
         if (choice == 3)
         {
-            StrList_print(lst);
+            if (lst != NULL){
+                StrList_print(lst);}
         }
 
         if (choice == 4)
         {
-            printf("%d", (int)(StrList_size(lst)));
+            printf("%d\n", (int)(StrList_size(lst)));
         }
 
         if (choice == 5)
@@ -50,13 +51,13 @@ int main()
 
         if (choice == 6)
         {
-            printf("%d", StrList_printLen(lst));
+            printf("%d\n", StrList_printLen(lst));
         }
 
         if (choice == 7)
         {
             scanf("%s", words);
-            printf("%d", StrList_count(lst, words));
+            printf("%d\n", StrList_count(lst, words));
         }
 
         if (choice == 8)
@@ -89,8 +90,8 @@ int main()
         if (choice == 13)
         {
             if (StrList_isSorted(lst) == 1)
-                printf("true");
-            else printf("false");
+                printf("true\n");
+            else printf("false\n");
         }
 
         scanf("%d", &choice);

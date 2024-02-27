@@ -99,7 +99,7 @@ void StrList_print(const StrList* StrList) {
 		printf("%s ", p->_data);
 		p= p->_next;
 	}
-    printf("%s", p->_data);
+    printf("%s\n", p->_data);
 }
 
 void StrList_printAt(const StrList* StrList, int index) {
@@ -225,21 +225,23 @@ void StrList_reverse(StrList* StrList) {
 }
 
 void StrList_sort( StrList* StrList) {
-    int swapped;
-    Node* p1; 
-    Node* p2 = NULL;
-    Node* ptr1;
+     int swapped;
+    Node *p1 = NULL; 
+    Node *p2 = NULL;
+    Node *ptr1;
 
-    if (StrList->_head == NULL) {
-        return; }
+    if (StrList == NULL || StrList->_head == NULL) {
+        return;
+    }
 
     do {
         swapped = 0;
         ptr1 = StrList->_head;
+        p1 = ptr1;
 
-          while (p1->_next != p2) {
-            if (strcmp(ptr1->_data, ptr1->_next->_data) > 0) {
-                char* temp = p1->_data;
+        while (p1->_next != p2) {
+            if (strcmp(p1->_data, p1->_next->_data) > 0) {
+                char *temp = p1->_data;
                 p1->_data = p1->_next->_data;
                 p1->_next->_data = temp;
                 swapped = 1;
